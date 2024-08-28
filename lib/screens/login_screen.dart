@@ -1,6 +1,6 @@
 // lib/screens/login_screen.dart
 import 'package:flutter/material.dart';
-import 'energy_meter_screen.dart';
+import 'package:project/screens/energy_meter_home_page.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -12,16 +12,16 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/logo.png', height: 100), // Add your logo image
-            SizedBox(height: 20),
-            TextField(
+            const SizedBox(height: 20),
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Email',
                 prefixIcon: Icon(Icons.email),
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
-            TextField(
+            const SizedBox(height: 20),
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Password',
                 prefixIcon: Icon(Icons.lock),
@@ -47,7 +47,7 @@ class LoginScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => EnergyMeterScreen()),
+                      builder: (context) => EnergyMeterHomePage()),
                 );
               },
               child: Text('Login'),

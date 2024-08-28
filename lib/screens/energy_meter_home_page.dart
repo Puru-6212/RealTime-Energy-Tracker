@@ -4,8 +4,6 @@ import 'package:project/screens/insights_page.dart';
 import '../services/firebase_service.dart';
 import '../models/meter_data.dart';
 import '../widgets/data_card.dart';
-import '../widgets/real_time_button.dart';
-// import '../widgets/energy_chart.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class EnergyMeterHomePage extends StatefulWidget {
@@ -30,6 +28,7 @@ class EnergyMeterHomePageState extends State<EnergyMeterHomePage> {
 
   Future<void> _fetchMeterData() async {
     final data = await _firebaseService.fetchMeterData();
+    print(data);
     setState(() {
       _meterData = data;
       _updateEnergySpots(); // Update the chart with new data
@@ -117,23 +116,23 @@ class EnergyMeterHomePageState extends State<EnergyMeterHomePage> {
                   if (_meterData != null) ...[
                     DataCard(
                         title: 'Voltage',
-                        value: _meterData!.voltage,
+                        value: '${_meterData!.voltage}',
                         icon: Icons.bolt),
                     DataCard(
                         title: 'Current',
-                        value: _meterData!.current,
+                        value: '${_meterData!.current}',
                         icon: Icons.electrical_services),
                     DataCard(
                         title: 'Power',
-                        value: _meterData!.power,
+                        value: '${_meterData!.power}',
                         icon: Icons.power),
                     DataCard(
                         title: 'Energy',
-                        value: _meterData!.energy,
+                        value: '${_meterData!.energy}',
                         icon: Icons.energy_savings_leaf),
                     DataCard(
                         title: 'Power Factor',
-                        value: _meterData!.powerFactor,
+                        value: '${_meterData!.powerFactor}',
                         icon: Icons.speed),
                   ] else ...[
                     const Center(child: CircularProgressIndicator()),
@@ -141,7 +140,21 @@ class EnergyMeterHomePageState extends State<EnergyMeterHomePage> {
                 ],
               ),
             ),
-            RealTimeButton(onPressed: _sendDummyData),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.sync,
+                    color: Color.fromARGB(255, 0, 62, 79)),
+                label: const Text('Simulate Real-Time Updates'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: _sendDummyData,
+              ),
+            ),
           ],
         ),
       ),
