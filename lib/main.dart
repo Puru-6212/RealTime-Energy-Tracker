@@ -1,19 +1,20 @@
+// main.dart
 import 'package:flutter/material.dart';
-import 'screens/energy_meter_home_page.dart';
+import 'screens/login_screen.dart';
 
-void main() => runApp(const EnergyMeterApp());
+void main() {
+  runApp(MyApp());
+}
 
-class EnergyMeterApp extends StatelessWidget {
-  const EnergyMeterApp({super.key});
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Digital Energy Meter',
+      title: 'Energify',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const EnergyMeterHomePage(),
+      home: LoginScreen(),
     );
   }
 }
