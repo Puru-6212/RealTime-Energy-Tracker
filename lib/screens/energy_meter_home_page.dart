@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project/screens/energy_consumption_screen.dart';
-import 'package:project/screens/insights_page.dart';
+// import 'package:project/screens/energy_consumption_screen.dart';
+// import 'package:project/screens/insights_page.dart';
+import 'package:project/widgets/custom_drawer.dart';
 import '../services/firebase_service.dart';
 import '../models/meter_data.dart';
 import '../widgets/data_card.dart';
@@ -28,7 +29,7 @@ class EnergyMeterHomePageState extends State<EnergyMeterHomePage> {
 
   Future<void> _fetchMeterData() async {
     final data = await _firebaseService.fetchMeterData();
-    print(data);
+    //print(data);
     setState(() {
       _meterData = data;
       _updateEnergySpots(); // Update the chart with new data
@@ -59,53 +60,7 @@ class EnergyMeterHomePageState extends State<EnergyMeterHomePage> {
       appBar: AppBar(
         title: const Text('Digital Energy Meter'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Energy Meter Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.analytics),
-              title: const Text('Insights'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const InsightsPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.show_chart),
-              title: const Text('Energy Consumption'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const EnergyConsumptionScreen()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -116,23 +71,23 @@ class EnergyMeterHomePageState extends State<EnergyMeterHomePage> {
                   if (_meterData != null) ...[
                     DataCard(
                         title: 'Voltage',
-                        value: '${_meterData!.voltage}',
+                        value: _meterData!.voltage,
                         icon: Icons.bolt),
                     DataCard(
                         title: 'Current',
-                        value: '${_meterData!.current}',
+                        value: _meterData!.current,
                         icon: Icons.electrical_services),
                     DataCard(
                         title: 'Power',
-                        value: '${_meterData!.power}',
+                        value: _meterData!.power,
                         icon: Icons.power),
                     DataCard(
                         title: 'Energy',
-                        value: '${_meterData!.energy}',
+                        value: _meterData!.energy,
                         icon: Icons.energy_savings_leaf),
                     DataCard(
                         title: 'Power Factor',
-                        value: '${_meterData!.powerFactor}',
+                        value: _meterData!.powerFactor,
                         icon: Icons.speed),
                   ] else ...[
                     const Center(child: CircularProgressIndicator()),
