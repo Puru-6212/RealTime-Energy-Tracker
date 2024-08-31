@@ -22,3 +22,7 @@ Analytics screen providing insights into user activity(left) and Energy consumpt
   <img src="https://github.com/user-attachments/assets/88c55ed5-e4da-4a92-b50d-112bb2f152dc" alt="Analytics Screen" width="26%" height="500px">
 </p>
 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cbace4fa-7843-4c57-8fc3-78dc3e8daf03" alt="Login Screen" width="26%" height="500px">
+</p>
