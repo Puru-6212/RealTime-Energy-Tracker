@@ -1,5 +1,6 @@
 // lib/widgets/custom_drawer.dart
 import 'package:flutter/material.dart';
+import 'package:project/screens/billings_screen';
 import 'package:project/screens/energy_saving_tips_screen.dart';
 import '../screens/insights_page.dart';
 import '../screens/energy_consumption_screen.dart';
@@ -61,6 +62,17 @@ class CustomDrawer extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => EnergySavingTipsScreen()),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.money_off_csred_outlined),
+            title: Text('Billings Screen'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BillingScreen()),
               );
             },
           ),

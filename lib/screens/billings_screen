@@ -1,0 +1,109 @@
+import 'package:flutter/material.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Smart Billing and Payment',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: BillingScreen(),
+    );
+  }
+}
+
+class BillingScreen extends StatefulWidget {
+  @override
+  _BillingScreenState createState() => _BillingScreenState();
+}
+
+class _BillingScreenState extends State<BillingScreen> {
+  double totalBillAmount = 150.00; // Example total bill amount
+  Map<String, double> roommatesConsumption = {
+    'Alice': 50.00,
+    'Bob': 60.00,
+    'Charlie': 40.00,
+  };
+
+  void _payBill() {
+    // Handle direct bill payment logic here
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Payment Successful'),
+          content: Text('Your payment of \$${totalBillAmount.toStringAsFixed(2)} has been processed.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double totalConsumption = roommatesConsumption.values.reduce((a, b) => a + b);
+    double amountPerPerson = totalBillAmount / totalConsumption;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Smart Billing and Payment'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Direct Bill Payment',
+              style: Theme.of(context).textTheme.headlineSmall, // Updated property
+            ),
+            SizedBox(height: 10),
+            Text('Total Bill Amount: \$${totalBillAmount.toStringAsFixed(2)}'),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: _payBill,
+              child: Text('Pay Bill'),
+            ),
+            SizedBox(height: 30),
+            Text(
+              'Bill Splitting',
+              style: Theme.of(context).textTheme.headlineSmall, // Updated property
+            ),
+            SizedBox(height: 10),
+            Text('Total Consumption: \$${totalConsumption.toStringAsFixed(2)}'),
+            SizedBox(height: 10),
+            Text('Split Amount Per Person: \$${amountPerPerson.toStringAsFixed(2)}'),
+            SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: roommatesConsumption.length,
+                itemBuilder: (context, index) {
+                  String roommate = roommatesConsumption.keys.elementAt(index);
+                  double consumption = roommatesConsumption[roommate]!;
+                  double share = consumption * amountPerPerson / totalConsumption;
+
+                  return Card(
+                    elevation: 2,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                    child: ListTile(
+                      title: Text(roommate),
+                      subtitle: Text('Consumption: \$${consumption.toStringAsFixed(2)}\nShare: \$${share.toStringAsFixed(2)}'),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
